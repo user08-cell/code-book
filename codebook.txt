@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code Book</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background-color: #f7f9fc;
+      color: #222;
+      margin: 0;
+      padding: 0 10%;
+    }
+    header {
+      text-align: center;
+      padding: 30px 0;
+    }
+    h1 {
+      margin-bottom: 0;
+      font-size: 2.2rem;
+      color: #0056b3;
+    }
+    h2 {
+      background-color: #e0edff;
+      color: #003e91;
+      padding: 10px;
+      border-left: 5px solid #0056b3;
+      border-radius: 6px;
+    }
+    .code-container {
+      position: relative;
+      background: #f1f1f1;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 10px;
+      overflow-x: auto;
+    }
+    pre {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    button.copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    button.copy-btn:hover {
+      background-color: #003e91;
+    }
+    .output-box {
+      background: #fff;
+      border-left: 4px solid #0056b3;
+      padding: 10px;
+      margin-bottom: 40px;
+      font-family: "Courier New", monospace;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Code Book</h1>
+    <p><strong>ADA PART-B Programs</strong></p>
+  </header>
+
+  <!-- Program 1 -->
+  <section>
+    <h2>Program 1: Print In-Degree, Out-Degree and Display Adjacency Matrix</h2>
+    <div class="code-container">
+      <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+      <pre>
+def calculate_degrees(matrix):
+    in_degree = [sum([row[i] for row in matrix]) for i in range(len(matrix))]
+    out_degree = [sum(row) for row in matrix]
+    return in_degree, out_degree
+
+def print_adjacency_matrix(matrix):
+    print("Adjacency Matrix:")
+    for row in matrix:
+        print(row)
+
+def main():
+    adjacency_matrix = [
+        [0, 1, 1, 0],
+        [0, 0, 1, 0],
+        [0, 0, 0, 1],
+        [1, 0, 0, 0]
+    ]
+    print_adjacency_matrix(adjacency_matrix)
+    in_degree, out_degree = calculate_degrees(adjacency_matrix)
+    print("\nIn-Degree:")
+    for i, degree in enumerate(in_degree):
+        print(f"Vertex {i}: {degree}")
+    print("\nOut-Degree:")
+    for i, degree in enumerate(out_degree):
+        print(f"Vertex {i}: {degree}")
+
+if _name_ == "_main_":
+    main()
+      </pre>
+    </div>
+    <div class="output-box">
+      Output:<br>
+      Adjacency Matrix:<br>
+      [0, 1, 1, 0]<br>
+      [0, 0, 1, 0]<br>
+      [0, 0, 0, 1]<br>
+      [1, 0, 0, 0]<br><br>
+      In-Degree:<br>
+      Vertex 0: 1<br>
+      Vertex 1: 1<br>
+      Vertex 2: 2<br>
+      Vertex 3: 1<br><br>
+      Out-Degree:<br>
+      Vertex 0: 2<br>
+      Vertex 1: 1<br>
+      Vertex 2: 1<br>
+      Vertex 3: 1
+    </div>
+  </section>
+
+  <!-- Program 2 -->
+  <section>
+    <h2>Program 2: Backtracking Algorithm for N-Queens Problem</h2>
+    <div class="code-container">
+      <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+      <pre>
+def solve_n_queens(n):
+    def is_safe(board, row, col):
+        for i in range(row):
+            if board[i] == col or board[i] - i == col - row or board[i] + i == col + row:
+                return False
+        return True
+
+    def solve_helper(n, row, board):
+        if row == n:
+            result.append(board[:])
+            return
+        for col in range(n):
+            if is_safe(board, row, col):
+                board[row] = col
+                solve_helper(n, row + 1, board)
+
+    result = []
+    solve_helper(n, 0, [-1]*n)
+    return [["."i + "Q" + "."(n-i-1) for i in sol] for sol in result]
+
+n = 4
+solutions = solve_n_queens(n)
+for i, solution in enumerate(solutions):
+    print("Solution", i+1)
+    for row in solution:
+        print(row)
+    print()
+      </pre>
+    </div>
+    <div class="output-box">
+      Output:<br>
+      Solution 1<br>
+      .Q..<br>
+      ...Q<br>
+      Q...<br>
+      ..Q.<br><br>
+      Solution 2<br>
+      ..Q.<br>
+      Q...<br>
+      ...Q<br>
+      .Q..
+    </div>
+  </section>
+
+  <!-- Continue the same structure for other programs (Sum of Subsets, Job Sequencing, Optimal BST, Prim’s, Kruskal’s) -->
+  
+  <script>
+    function copyCode(btn) {
+      const code = btn.nextElementSibling.innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        btn.textContent = "Copied!";
+        setTimeout(() => btn.textContent = "Copy Code", 1500);
+      });
+    }
+  </script>
+</body>
+</html>
